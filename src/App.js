@@ -1,42 +1,31 @@
-import { BrowserRouter, Routes, Route,  } from "react-router-dom";//Navigate
-//import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import './App.css';
-import Register from "./Component/Register";
+import Password from "./Component/Password";
 import CardPage from "./Component/CardPage";
 
 function App() {
- // const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage authentication status
-
-  // Check if a token exists in the session storage
-  // useEffect(() => {
-  //   const token = sessionStorage.getItem('token');
-  //   if (token) {
-  //     setIsLoggedIn(true); // User is logged in if a token exists
-  //   }
-  // }, []);
-
-  // Function to handle user logout
-  // const handleLogout = () => {
-  //   sessionStorage.removeItem('token'); // Clear token from session storage
-  //   setIsLoggedIn(false); // Update authentication status
-  // };
-
+  // Check if a token exists in the session storage and if it equals "i am authenticated person"
+  const token = sessionStorage.getItem('token');
+  
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/Login" element={<Register />} />
-          {/* <Route path="/" element={<PrivateRoute isLoggedIn={isLoggedIn} />} /> */}
-          <Route path="/" element={<CardPage />} />
+          <Route path="/Login" element={<Password />} />
+          <Route
+            path="/"
+            element={
+              token === "i am authenticated person" ? (
+                <CardPage />
+              ) : (
+                <Navigate to="/Login" />
+              )
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
-
-// // PrivateRoute component to guard private routes
-// const PrivateRoute = ({ isLoggedIn }) => {
-//   return isLoggedIn ? <CardPage /> : <Navigate to="/Login" replace />;
-// };
 
 export default App;

@@ -1,44 +1,118 @@
-import React, { useEffect, useState } from 'react';
-import supabase from '../config/supabase';
+import React, { useState } from 'react';
 import './CardPage.css'; // Assuming you have a separate CSS file for styling
+import folderIcon from '../Component/image/folder.png'; // Assuming you have a folder icon image
+import fileIcon from '../Component/image/html.png'; // Assuming you have an HTML file icon image
+import cssIcon from '../Component/image/css.png'; // Assuming you have a CSS file icon image
 
 function CardPage() {
-
-    const [cards,setCards] = useState([])
-    useEffect(() => {
-        const fetchPublications = async () => {
-          try {
-            // Fetch data from the 'publication' table
-            const { data, error } = await supabase.from('publication').select('*');
-        
-            if (error) {
-              throw error;
+    const initialFolderStructure = {
+        name: 'Root',
+        type: 'folder',
+        children: [
+            {
+                name: 'Oyum',
+                type: 'folder',
+                children: [
+                    {
+                        name: 'index.html',
+                        type: 'file'
+                    },
+                    {
+                        name: 'styles.css',
+                        type: 'file'
+                    }
+                ]
+            },
+            {
+                name: 'Appsala',
+                type: 'folder',
+                children: [
+                    {
+                        name: 'index.html',
+                        type: 'file'
+                    },
+                    {
+                        name: 'styles.css',
+                        type: 'file'
+                    }
+                ]
+            },
+            {
+                name: 'Jumji',
+                type: 'folder',
+                children: [
+                    {
+                        name: 'index.html',
+                        type: 'file'
+                    },
+                    {
+                        name: 'styles.css',
+                        type: 'file'
+                    }
+                ]
             }
-            console.log(data[0])
-            setCards(data)
-            
-            // You can further process the data here
-        
-          } catch (error) {
-            console.error('Error fetching publications:', error.message);
-          }
+        ]
+    };
+
+    const [currentFolder, setCurrentFolder] = useState(initialFolderStructure);
+
+    const handleFolderClick = (folder) => {
+        setCurrentFolder(folder);
+    };
+
+    const handleGoBack = () => {
+        if (currentFolder.parent) {
+            setCurrentFolder(currentFolder.parent);
         }
+    };
+
+    const handleFileClick = async (fileName) => {
+        try {
+            if (fileName.endsWith('.html')) {
+                // If the file is an HTML file, open it in a new tab
+                const fileURL = `files/${currentFolder.name}/${fileName}`;
+                window.open(fileURL, '_blank');
+            } else {
+                // For other file types, fetch the content
+                const response = await fetch(`/files/${currentFolder.name}/${fileName}`);
+                const content = await response.text();
+                console.log(content); // Do something with the file content
+            }
+        } catch (error) {
+            console.error('Error loading file:', error);
+        }
+    };
     
-        // Call the fetchPublications function to execute the query
-        fetchPublications();
-      }, []);
 
     return (
         <div className="cardPage">
-            {cards.map(card => (
-                <div key={card.id} className="card">
-                    <img src={card.imageUrl} alt={card.name} className="cardImage" />
-                    <div className="cardContent">
-                        <h3 className="cardName">{card.publication_name}</h3>
-                        <a href={`https://${card.domain_name}`} className="cardLink" target="_blank" rel="noopener noreferrer">Visit Website</a>
-                    </div>
-                </div>
-            ))}
+            <div className="folderContent">
+                <button onClick={handleGoBack} disabled={!currentFolder.parent}>Go Back</button>
+                <ul className="folders">
+                    {currentFolder.children.map((item, index) => (
+                        item.type === 'folder' ? (
+                            <li key={index} className="folderContainer" onClick={() => handleFolderClick(item)}>
+                                <img src={folderIcon} alt="Folder Icon" className="folderIcon" />
+                                <span className="folderName">{item.name}</span>
+                            </li>
+                        ) : null
+                    ))}
+                </ul>
+                <ul className="files">
+                    {currentFolder.children.map((item, index) => (
+                        item.type === 'file' ? (
+                            <li key={index} className="fileContainer" onClick={() => handleFileClick(item.name)}>
+                                {item.name.endsWith('.css') ? (
+                                    <img src={cssIcon} alt="CSS File Icon" className="fileIcon" />
+                                ) : (
+                                    <img src={fileIcon} alt="HTML File Icon" className="fileIcon" />
+                                )}
+                                <span className="fileName">{item.name}</span>
+                            </li>
+                        ) : null
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }
