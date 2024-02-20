@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/Login" element={<Password />} />
           <Route
-            path="/"
+            path="/home"
             element={
               token === "i am authenticated person" ? (
                 <CardPage />

@@ -23,7 +23,7 @@ function Password() {
     // If user is authenticated, redirect to CardPage
     if (isLoggedIn) {
         console.log(isLoggedIn)
-        return <Navigate to="/" />;
+        return <Navigate to="/home" />;
     }
 
     return (
