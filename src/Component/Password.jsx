@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom'; // Import Navigate component
 function Password() {
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage authentication status
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -22,8 +22,7 @@ function Password() {
 
     // If user is authenticated, redirect to CardPage
     if (isLoggedIn) {
-        console.log(isLoggedIn)
-        return <Navigate to="/home" />;
+        return <Navigate to="/" />;
     }
 
     return (
