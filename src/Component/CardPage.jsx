@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import './CardPage.css'; // Assuming you have a separate CSS file for styling
-import folderIcon from '../Component/image/folder.png'; // Assuming you have a folder icon image
-import fileIcon from '../Component/image/html.png'; // Assuming you have an HTML file icon image
-import cssIcon from '../Component/image/css.png'; // Assuming you have a CSS file icon image
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import Html from './Html';
+import './CardPage.css';
+import folderIcon from '../Component/image/folder.png';
+import fileIcon from '../Component/image/html.png';
+import cssIcon from '../Component/image/css.png';
 
 function CardPage() {
     const initialFolderStructure = {
@@ -18,10 +20,22 @@ function CardPage() {
                         type: 'file'
                     },
                     {
+                        name: 'author.html',
+                        type: 'file'
+                    },
+                    {
+                        name: 'profile.html',
+                        type: 'file'
+                    },
+                    {
+                        name: 'publication.html',
+                        type: 'file'
+                    },
+                    {
                         name: 'styles.css',
                         type: 'file'
                     }
-                ]
+                ] 
             },
             {
                 name: 'Appsala',
@@ -55,39 +69,30 @@ function CardPage() {
     };
 
     const [currentFolder, setCurrentFolder] = useState(initialFolderStructure);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const params = useParams();
+
+    useEffect(() => {
+        if (params.folderName) {
+            const folder = initialFolderStructure.children.find(folder => folder.name === params.folderName);
+            if (folder) {
+                setCurrentFolder(folder);
+            }
+        }
+    }, [params.folderName,initialFolderStructure.children]);
 
     const handleFolderClick = (folder) => {
         setCurrentFolder(folder);
+        window.history.pushState(null, '', `/${folder.name}`);
     };
 
-    const handleGoBack = () => {
-        if (currentFolder.parent) {
-            setCurrentFolder(currentFolder.parent);
-        }
+    const handleFileClick = (fileName) => {
+        setSelectedFile(fileName); // Set the selected file when a file name is clicked
     };
-
-    const handleFileClick = async (fileName) => {
-        try {
-            if (fileName.endsWith('.html')) {
-                // If the file is an HTML file, open it in a new tab
-                const fileURL = `files/${currentFolder.name}/${fileName}`;
-                window.open(fileURL, '_blank');
-            } else {
-                // For other file types, fetch the content
-                const response = await fetch(`/files/${currentFolder.name}/${fileName}`);
-                const content = await response.text();
-                console.log(content); // Do something with the file content
-            }
-        } catch (error) {
-            console.error('Error loading file:', error);
-        }
-    };
-    
 
     return (
         <div className="cardPage">
             <div className="folderContent">
-                <button onClick={handleGoBack} disabled={!currentFolder.parent}>Go Back</button>
                 <ul className="folders">
                     {currentFolder.children.map((item, index) => (
                         item.type === 'folder' ? (
@@ -98,21 +103,26 @@ function CardPage() {
                         ) : null
                     ))}
                 </ul>
-                <ul className="files">
-                    {currentFolder.children.map((item, index) => (
-                        item.type === 'file' ? (
-                            <li key={index} className="fileContainer" onClick={() => handleFileClick(item.name)}>
-                                {item.name.endsWith('.css') ? (
-                                    <img src={cssIcon} alt="CSS File Icon" className="fileIcon" />
-                                ) : (
-                                    <img src={fileIcon} alt="HTML File Icon" className="fileIcon" />
-                                )}
-                                <span className="fileName">{item.name}</span>
-                            </li>
-                        ) : null
-                    ))}
-                </ul>
+                {selectedFile ? null : (
+                    <ul className="files">
+                        {currentFolder.children.map((item, index) => (
+                            item.type === 'file' ? (
+                                <li key={index} className="fileContainer" onClick={() => handleFileClick(item.name)}>
+                                    {item.name.endsWith('.css') ? (
+                                        <img src={cssIcon} alt="CSS File Icon" className="fileIcon" />
+                                    ) : (
+                                        <>
+                                            <img src={fileIcon} alt="HTML File Icon" className="fileIcon" />
+                                            <span className="fileName">{item.name}</span>
+                                        </>
+                                    )}
+                                </li>
+                            ) : null
+                        ))}
+                    </ul>
+                )}
             </div>
+            {selectedFile && <Html folderName={currentFolder.name} fileName={selectedFile} />}
         </div>
     );
 }
