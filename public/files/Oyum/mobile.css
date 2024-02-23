@@ -1,0 +1,236 @@
+.container{
+    width: 90%;
+}
+
+header{ 
+    height: 525px;
+    background: url(images/mob-back.png) no-repeat center center/cover;
+}
+header .header-heading{
+    margin-top: 3rem;
+    font-size: 32px;
+    line-height: 40px;
+}
+
+header .header-heading .underlined{
+    padding-bottom: 5px;
+}
+
+header .btn-light{
+    font-size: 12px; 
+    padding: 0px 16px;
+}
+
+header img[alt="logo"]{
+    height: 30px;
+}
+
+.currency-card{
+    width: 100%;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.currency-card .row-flex{
+    flex-direction: row;
+    justify-content: space-between;
+}
+.currency-card .btn-dark{
+    width: 100%;
+    font-size: 14px;
+}
+
+.currency-card .text-4xl{
+    font-size: 2rem; /* 36px */
+    line-height: 2rem;
+    text-align: center;
+}
+
+.currency-card-div .text-4xl{
+    font-size: 20px; 
+    line-height: 20px;
+    text-align: center;
+    margin: 16px 0;
+}
+
+.currency-card-div{
+    margin-top: -18rem;
+}
+.currency-card .text-lg{
+    font-size: 14px; /* 36px */
+    line-height: 1rem;
+    text-align: center;
+}
+
+.currency-card .text-sm{
+    font-size: 10px; /* 36px */
+    line-height: 10px;
+}
+.currency-card .text-xl{
+    font-size: 14px; /* 36px */
+    line-height: 14px;
+}
+
+.currency-card-right input::placeholder{
+  font-size: 12px;
+}
+.currency-card-left,.currency-card-right{
+    width: 100%;
+}
+
+.currency-card-left{
+    margin-top: 0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+}
+
+.currency-card-right{
+    margin-top: -1.5rem;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+}
+
+.currency-card-left>*,.currency-card-right>*{
+    margin: 1rem 0;
+}
+
+.progress-container { 
+    width: 100%;
+}
+
+.currency-button{
+    font-size: 12px;
+}
+
+
+
+.main{
+    top: -15rem;
+}
+
+.main-flex{
+    flex-direction: column;
+}
+
+.main-element-paragraph{
+    font-size: 14px;
+    line-height: 14px;
+    width: 100%;
+    text-align: center;
+}
+
+
+ .main-element-heading{
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.main-flex img{
+    height: 100%;
+    width: 100%;
+}
+.main-flex img[alt="final"]{
+    display: none;
+}
+.main-flex img[alt="mobile-final"]{
+    display: block;
+}
+
+.main-flex .card{
+    margin-left: 0rem
+}
+
+.tiles{
+    flex-direction: column;
+}
+
+.tiles .tile-para{
+    width: 100%;
+    font-size: 14px;
+}
+
+.background-change{
+    padding: 1rem;
+    width: 100%;
+}
+
+.background-change-light{ 
+    padding: 3rem;
+}
+
+.background-linear{ 
+    background: linear-gradient(90deg, rgba(1,4,24,1) -30%, rgba(130,125,233,1) 80%, rgba(179,119,230,1) 100%);
+    padding: 1rem;
+    flex-direction: column;
+}
+.background-linear .mod-width{
+    width: 100%;
+}
+.background-linear .background-linear-para{
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+}
+
+.background-linear .background-linear-heading{
+    font-size: 24px;
+    width: 100%;
+    text-align: center;
+}
+.background-linear .social {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .background-linear .social .social-child{
+    grid-row: 1;
+  }
+  .background-linear .social .social-child:nth-child(3),
+  .background-linear .social .social-child:nth-child(4),
+  .background-linear .social .social-child:nth-child(5){
+    grid-row: 2;
+  }
+
+  .background-linear .social .social-child:nth-child(1),
+  .background-linear .social .social-child:nth-child(2){
+    margin-left: 1.5rem;
+  }
+
+  .faq-heading{
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  .faq-para{
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  .faq img{
+    height: 30px;
+    width: 30px;
+  }
+footer{
+    top: -20rem;
+}
+  footer .footer-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  footer img{
+    height: 20%;
+    width: 20%;
+  }
+
+  footer .footer-grid p{
+    font-size: 12px;
+  }
+
+  
+.main-flex,
+.main-flex-games,
+.main-flex-social,
+.main-flex-faq
+{
+    margin-top: 3rem;
+}

@@ -19,16 +19,13 @@ function CardPage() {
                         name: 'index.html',
                         type: 'file'
                     },
+                    
                     {
-                        name: 'author.html',
-                        type: 'file'
+                        name: 'image',
+                        type: 'folder'
                     },
                     {
-                        name: 'profile.html',
-                        type: 'file'
-                    },
-                    {
-                        name: 'publication.html',
+                        name: 'mobile.css',
                         type: 'file'
                     },
                     {
